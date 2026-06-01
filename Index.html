@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideenpool & Inspirationshäppchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f2ede4;
+  --paper:#faf7f1;
+  --paper2:#f5f0e6;
+  --ink:#1e1a13;
+  --ink2:#6b5f4a;
+  --ink3:#a8997e;
+  --line:rgba(100,80,45,0.14);
+  --line2:rgba(100,80,45,0.26);
+  --shadow:0 3px 12px rgba(40,28,8,0.10),0 1px 3px rgba(40,28,8,0.07);
+  --shadow-lift:0 14px 40px rgba(40,28,8,0.16),0 3px 10px rgba(40,28,8,0.09);
+  --f-display:'Fraunces',Georgia,serif;
+  --f-body:'DM Sans',system-ui,sans-serif;
+}
+
+body{
+  font-family:var(--f-body);
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* grain overlay */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── DISCOVER MODE ── */
+#mode-discover{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 24px 60px;
+}
+
+.discover-eyebrow{
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--ink3);
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.discover-title{
+  font-family:var(--f-display);
+  font-size:clamp(22px,4vw,36px);
+  font-weight:600;
+  text-align:center;
+  line-height:1.15;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+
+.discover-title em{
+  font-style:italic;
+  font-weight:300;
+}
+
+.discover-sub{
+  font-size:13px;
+  color:var(--ink2);
+  text-align:center;
+  margin-bottom:48px;
+  max-width:400px;
+  line-height:1.5;
+}
+
+/* ── CARD STAGE ── */
+#card-stage{
+  position:relative;
+  width:100%;
+  max-width:900px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:36px;
+}
+
+/* ── SINGLE CARD ── */
+.karte{
+  background:var(--paper);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  width:260px;
+  flex-shrink:0;
+  overflow:hidden;
+  cursor:default;
+  transition:transform 0.3s cubic-bezier(.34,1.4,.64,1), box-shadow 0.25s ease;
+  position:relative;
+}
+
+.karte:hover{
+  transform:rotate(0deg) translateY(-6px) !important;
+  box-shadow:var(--shadow-lift);
+  z-index:20;
+}
+
+/* rotation per position */
+.karte:nth-child(1){transform:rotate(-2.1deg)}
+.karte:nth-child(2){transform:rotate(1.3deg);margin-top:18px}
+.karte:nth-child(3){transform:rotate(-0.7deg);margin-top:6px}
+
+.karte-stripe{height:5px;width:100%}
+
+.karte-body{padding:18px 20px 16px}
+
+.karte-prinzip{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  opacity:0.55;
+}
+
+.karte-idee{
+  font-family:var(--f-display);
+  font-size:16px;
+  font-weight:600;
+  line-height:1.35;
+  color:var(--ink);
+  margin-bottom:14px;
+}
+
+.karte-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.ktag{
+  font-size:10px;
+  padding:3px 9px;
+  border-radius:20px;
+  border:1px solid var(--line2);
+  color:var(--ink2);
+  background:var(--paper2);
+  cursor:pointer;
+  transition:all 0.15s;
+  font-family:var(--f-body);
+  font-weight:400;
+}
+
+.ktag:hover{
+  background:var(--ink);
+  color:var(--paper);
+  border-color:var(--ink);
+}
+
+/* ── DISCOVER ACTIONS ── */
+.discover-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+}
+
+.btn-shuffle{
+  font-family:var(--f-body);
+  font-size:14px;
+  font-weight:500;
+  padding:13px 32px;
+  border-radius:40px;
+  border:1.5px solid var(--line2);
+  background:var(--paper);
+  color:var(--ink2);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition:all 0.18s;
+  letter-spacing:0.01em;
+}
+
+.btn-shuffle:hover{
+  background:var(--ink);
+  color:var(--paper);
+  border-color:var(--ink);
+  box-shadow:var(--shadow-lift);
+  transform:translateY(-2px);
+}
+
+.btn-explore{
+  font-family:var(--f-body);
+  font-size:12px;
+  color:var(--ink3);
+  background:none;
+  border:none;
+  cursor:pointer;
+  transition:color 0.15s;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-color:var(--line2);
+  padding:4px 8px;
+}
+
+.btn-explore:hover{color:var(--ink)}
+
+.shuffle-count{
+  font-size:11px;
+  color:var(--ink3);
+  text-align:center;
+  min-height:16px;
+  transition:opacity 0.3s;
+}
+
+/* ── EXPLORE MODE ── */
+#mode-explore{
+  display:none;
+  position:relative;
+  z-index:1;
+  padding:0 0 80px;
+}
+
+#mode-explore.visible{display:block}
+
+.explore-header{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  padding:28px 40px 22px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 12px rgba(40,28,8,0.06);
+}
+
+.explore-header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.explore-header-top h2{
+  font-family:var(--f-display);
+  font-size:20px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.btn-back{
+  font-family:var(--f-body);
+  font-size:12px;
+  color:var(--ink3);
+  background:none;
+  border:1px solid var(--line2);
+  border-radius:20px;
+  padding:6px 16px;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+
+.btn-back:hover{color:var(--ink);border-color:var(--ink2)}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.filter-label{
+  font-size:11px;
+  color:var(--ink3);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-right:4px;
+}
+
+.fbtn{
+  font-family:var(--f-body);
+  font-size:11px;
+  font-weight:400;
+  padding:5px 13px;
+  border-radius:20px;
+  border:1px solid var(--line2);
+  background:var(--paper2);
+  color:var(--ink2);
+  cursor:pointer;
+  transition:all 0.15s;
+}
+
+.fbtn:hover{background:var(--paper);color:var(--ink)}
+
+.fbtn.on{
+  background:var(--ink);
+  color:var(--paper);
+  border-color:var(--ink);
+}
+
+/* ── EXPLORE CONTENT ── */
+.explore-content{
+  padding:32px 40px 0;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+/* Prinzip-Sektion */
+.prinzip-section{
+  margin-bottom:40px;
+}
+
+.prinzip-section-head{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:16px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+
+.prinzip-nr{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  color:var(--ink3);
+}
+
+.prinzip-name{
+  font-family:var(--f-display);
+  font-size:18px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.prinzip-sub{
+  font-size:12px;
+  color:var(--ink2);
+  font-style:italic;
+}
+
+.prinzip-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  flex-shrink:0;
+  margin-right:2px;
+}
+
+/* Karten in Explore */
+.explore-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:12px;
+}
+
+.e-karte{
+  background:var(--paper);
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(40,28,8,0.07);
+  overflow:hidden;
+  border:1px solid var(--line);
+  transition:box-shadow 0.18s,transform 0.18s;
+}
+
+.e-karte:hover{
+  box-shadow:0 8px 24px rgba(40,28,8,0.12);
+  transform:translateY(-2px);
+}
+
+.e-karte-stripe{height:3px}
+
+.e-karte-body{padding:12px 14px 10px}
+
+.e-karte-idee{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+
+.e-karte-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+
+.e-ktag{
+  font-size:10px;
+  padding:2px 8px;
+  border-radius:12px;
+  border:1px solid var(--line2);
+  color:var(--ink2);
+  background:var(--paper2);
+  cursor:pointer;
+  transition:all 0.12s;
+}
+
+.e-ktag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* hidden card */
+.e-karte.hidden{display:none}
+
+.result-count{
+  font-size:12px;
+  color:var(--ink3);
+  margin-bottom:20px;
+  padding:0 40px;
+  max-width:1280px;
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:20px;
+}
+
+/* no results */
+.no-results{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--ink3);
+  font-family:var(--f-display);
+  font-style:italic;
+  font-size:18px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(12px) rotate(var(--r,0deg))}
+  to{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}
+}
+
+.karte{animation:cardIn 0.4s cubic-bezier(.34,1.2,.64,1) both}
+.karte:nth-child(1){--r:-2.1deg;animation-delay:0.05s}
+.karte:nth-child(2){--r:1.3deg;animation-delay:0.13s}
+.karte:nth-child(3){--r:-0.7deg;animation-delay:0.21s}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.e-karte{animation:fadeUp 0.25s ease both}
+
+/* ── RESPONSIVE ── */
+@media(max-width:680px){
+  #card-stage{gap:14px}
+  .karte{width:calc(100vw - 48px);max-width:320px}
+  .karte:nth-child(2){margin-top:0}
+  .karte:nth-child(3){display:none}
+  .explore-header{padding:20px}
+  .explore-content{padding:20px 16px 0}
+  .result-count{padding:16px}
+  .explore-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MODE 1: DISCOVER ══ -->
+<div id="mode-discover">
+  <p class="discover-eyebrow">Lernen in einer Kultur der Digitalität</p>
+  <h1 class="discover-title">Ideenpool &amp;<br><em>Inspirationshäppchen</em></h1>
+  <p class="discover-sub">Drei zufällige Ideen — lass dich überraschen.</p>
+
+  <div id="card-stage"></div>
+
+  <div class="discover-actions">
+    <div class="shuffle-count" id="shuffle-count"></div>
+    <button class="btn-shuffle" onclick="shuffle()">↺ &nbsp;Andere zeigen</button>
+    <button class="btn-explore" onclick="goExplore()">Alle Ideen systematisch durchsuchen →</button>
+  </div>
+</div>
+
+<!-- ══ MODE 2: EXPLORE ══ -->
+<div id="mode-explore">
+  <div class="explore-header">
+    <div class="explore-header-top">
+      <h2>Alle Inspirationshäppchen</h2>
+      <button class="btn-back" onclick="goDiscover()">← Zurück zum Entdecken</button>
+    </div>
+    <div class="filter-bar" id="filter-bar">
+      <span class="filter-label">Filter:</span>
+    </div>
+  </div>
+  <div class="result-count" id="result-count"></div>
+  <div class="explore-content" id="explore-content"></div>
+</div>
+
+<script>
+const P = [
+  {id:1,color:'#C8860A',name:'Echtes Publikum',sub:'Lernprodukte verlassen die Klasse',
+   ideen:[
+    {t:'NMG-Projekt Kücken ausbrüten → Blog hält Eltern live auf dem Laufenden',tags:['KG','US','NMG','fachübergr.']},
+    {t:'Schulhausrundgang als selbst produzierter Audio-Guide für neue Erstklässler',tags:['US','D/F/E','fachübergr.']},
+    {t:'Erklärvideo zu einem Thema, das die jüngere Parallelklasse gerade lernt',tags:['US','MS','fachübergr.']},
+    {t:'Wikipedia-Artikel zu einem lokalen Thema schreiben und wirklich veröffentlichen',tags:['OS','D/F/E','M&I']},
+    {t:'Podcast-Folge zu einem aktuellen Thema — für andere Schulen produziert',tags:['MS','OS','D/F/E']},
+    {t:'Klimabericht der Schule, adressiert an und eingereicht bei der Gemeinde',tags:['OS','BNE','fachübergr.']},
+    {t:'Rezeptbuch mit Lieblingsessen aller Klassenfamilien — wird wirklich genutzt',tags:['KG','US','WAH','BNE']},
+    {t:'Medienmitteilung für den Schulanlass selbst verfassen — nicht die LP',tags:['OS','M&I','D/F/E']},
+    {t:'Bewerbungsmappe für einen echten lokalen Preis oder Wettbewerb einreichen',tags:['OS','BO','D/F/E']},
+    {t:'Kurzfilm über das Dorfleben — eingereicht beim Gemeindejubiläum',tags:['MS','OS','BG','fachübergr.']},
+  ]},
+  {id:2,color:'#3A9E8F',name:'Verwesentlichen im Überfluss',sub:'Im Überfluss das Wichtige erkennen und auswählen',
+   ideen:[
+    {t:'Kuratierte Linksammlung zu einem Thema für die Nachfolgeklasse aufbauen',tags:['MS','OS','M&I']},
+    {t:'"Das beste Video zu diesem Thema" auswählen und die Wahl begründen',tags:['MS','OS','fachübergr.']},
+    {t:'Klassen-Nachrichtenmagazin: Was ist diese Woche wirklich wichtig?',tags:['MS','OS','D/F/E','M&I']},
+    {t:'50 Suchergebnisse → 5 glaubwürdigste heraussuchen + schriftlich begründen',tags:['OS','M&I','BNE']},
+    {t:'Portfolio als begründete Auswahl — nicht als Ablage aller Arbeiten',tags:['US','MS','OS','fachübergr.','Strategien']},
+    {t:'Playlist für eine bestimmte Lernstimmung bewusst kuratieren',tags:['MS','OS','Musik']},
+    {t:'Nachrichtenlage zu einem Thema sichten: Was ist relevant, was ist Lärm?',tags:['OS','BNE','M&I']},
+    {t:'Lernstrategie bewusst wählen und danach reflektieren: Hat das gepasst?',tags:['MS','OS','Strategien']},
+    {t:'Aus vielen Berufsfeldern 3 heraussuchen, die wirklich interessieren — mit Begründung',tags:['OS','BO']},
+    {t:'Sprachbeispiele aus dem Alltag sammeln und nach selbst entwickelten Kriterien sortieren',tags:['MS','OS','D/F/E']},
+  ]},
+  {id:3,color:'#C0455A',name:'Den Denkweg zeigen',sub:'Nicht das Ergebnis — der Prozess zählt',
+   ideen:[
+    {t:'Lernvideo aufnehmen: nicht das Ergebnis zeigen, sondern wie man darauf gekommen ist',tags:['MS','OS','fachübergr.']},
+    {t:'Fehler-Logbuch führen: Was hat nicht funktioniert — und was wurde daraus gelernt?',tags:['US','MS','fachübergr.']},
+    {t:'Vorher/Nachher: Was dachte ich am Anfang — was denke ich jetzt?',tags:['KG','US','MS','OS','fachübergr.']},
+    {t:'Lernjournal als kurze Spracheingabe — vom KG bis zur OS einsetzbar',tags:['KG','US','MS','OS','Strategien']},
+    {t:'Kompositionsprozess dokumentieren: Skizzen, Verworfenes, Entscheidungen festhalten',tags:['MS','OS','Musik']},
+    {t:'"Ich beim ersten Versuch" vs. "nach zwei Wochen" — mit eigener Analyse',tags:['US','MS','OS','Sport']},
+    {t:'Misslungener erster Kochversuch festhalten + erklären, was danach anders gemacht wurde',tags:['MS','OS','WAH']},
+    {t:'Entwurfsmappe im Gestalten: alle Skizzen und Überarbeitungen aufbewahren und zeigen',tags:['MS','OS','BG']},
+    {t:'Bewerbungsvorbereitung: Warum dieser Beruf? Wie hat sich das entwickelt?',tags:['OS','BO','D/F/E']},
+    {t:'Sprachlerntagebuch: Was fiel mir heute leicht, was schwer — und warum?',tags:['US','MS','OS','D/F/E','Strategien']},
+  ]},
+  {id:4,color:'#4A7FC4',name:'Echte Probleme',sub:'Keine Schulaufgaben — Fragen aus der Welt',
+   ideen:[
+    {t:'Wie wird unser Schulhof besser? → Befragung, Konzept, Präsentation vor Schulleitung',tags:['US','MS','fachübergr.','BNE']},
+    {t:'Welche Geschichte steckt hinter diesem alten Haus im Dorf? → Recherche, Interview, Dok.',tags:['MS','OS','NMG','D/F/E']},
+    {t:'Was essen wir eigentlich? → Analyse Schulkantine + konkreter Verbesserungsvorschlag',tags:['MS','OS','WAH','BNE']},
+    {t:'Wie klimafreundlich ist unsere Schule? → Messen, Berichten, Empfehlungen abgeben',tags:['OS','BNE','NMG']},
+    {t:'Wie verpflegen wir uns am Lager mit begrenztem Budget und lokalen Produkten?',tags:['MS','OS','WAH','fachübergr.']},
+    {t:'Wie gestalten wir den Pausensport so, dass er wirklich alle einbezieht?',tags:['US','MS','Sport','SoftSkills']},
+    {t:'Was würden wir Neuzuzügenden über unser Dorf sagen? → Guide, wirklich veröffentlicht',tags:['KG','US','MS','D/F/E','BNE']},
+    {t:'Welche Berufe gibt es in unserem Dorf überhaupt? → Interviews, Bericht',tags:['MS','OS','BO','D/F/E']},
+    {t:'Wie kommunizieren wir in der Klasse — was klappt, was nicht?',tags:['KG','US','MS','OS','SoftSkills','D/F/E']},
+    {t:'Was müsste sich an unserer Schule ändern, damit alle gerne hier sind?',tags:['MS','OS','SoftSkills','BNE','fachübergr.']},
+  ]},
+  {id:5,color:'#5EA84E',name:'Gestalten, nicht konsumieren',sub:'Schüler:innen als Produzent:innen',
+   ideen:[
+    {t:'Nicht nach Rezept kochen — eigenes Rezept für eine bestimmte Situation entwickeln',tags:['MS','OS','WAH']},
+    {t:'Lied für einen konkreten Anlass komponieren: Abschied, Schuleinweihung, Jubiläum',tags:['US','MS','OS','Musik']},
+    {t:'Eigene Aufwärmsequenz entwickeln und der ganzen Klasse beibringen',tags:['US','MS','OS','Sport']},
+    {t:'Schüler:innen produzieren das Lehrmittel für das nächste Kapitel selbst',tags:['MS','OS','fachübergr.']},
+    {t:'App-Idee für ein echtes Problem als Paper Prototype skizzieren und testen',tags:['MS','OS','M&I','fachübergr.']},
+    {t:'Ausstellung in der Gemeindebibliothek — kuratiert und organisiert von der Klasse',tags:['US','MS','BG','fachübergr.']},
+    {t:'Klassenregeln als Entscheidungsbaum visualisieren statt als Liste aufhängen',tags:['KG','US','MS','SoftSkills']},
+    {t:'Den Erklärfilm selbst drehen, den die LP sonst gezeigt hätte',tags:['MS','OS','fachübergr.']},
+    {t:'Bewerbungsunterlagen für ein echtes Schnupperpraktikum erstellen',tags:['OS','BO','D/F/E']},
+    {t:'Kurzen Hörspiel-Dialog in der Fremdsprache schreiben, einüben und aufnehmen',tags:['US','MS','OS','D/F/E']},
+  ]},
+  {id:6,color:'#B05E2E',name:'Analog und Digital verschränken',sub:'Das eine verstärkt das andere',
+   ideen:[
+    {t:'Selbstportraits als Plakate gestalten + QR-Code mit Stimme und Video ergänzen',tags:['US','MS','BG','D/F/E']},
+    {t:'Kunstwerke analog oder digital → VR-Ausstellung für Eltern zugänglich machen',tags:['MS','OS','BG']},
+    {t:'Bewegungssequenz filmen, anschauen, selbst korrigieren — ohne LP-Feedback',tags:['US','MS','OS','Sport']},
+    {t:'Notiertes Lied + Audioaufnahme verknüpfen — Partitur "klingt"',tags:['US','MS','OS','Musik']},
+    {t:'Naturtagebuch analog führen + Tonaufnahmen von Vogelstimmen verknüpfen',tags:['KG','US','NMG']},
+    {t:'Handgezeichnete Karte des Schulwegs + Foto an jedem wichtigen Punkt verlinkt',tags:['KG','US','MS','NMG']},
+    {t:'Kochprozess: Foto + kurze Sprachnotiz zu jedem Schritt → digitales Rezept',tags:['MS','OS','WAH']},
+    {t:'Skulptur im Gestalten + 360°-Video des gesamten Entstehungsprozesses',tags:['MS','OS','BG']},
+    {t:'Lektüre mit handschriftlichen Notizen + Audio-Kommentar verknüpfen',tags:['MS','OS','D/F/E']},
+    {t:'Lebenslauf auf Papier + kurzes Vorstellungsvideo für ein Schnupperpraktikum',tags:['OS','BO','D/F/E']},
+  ]},
+  {id:7,color:'#7E55B8',name:'Mit der Welt lernen',sub:'Über die Klasse hinaus denken und handeln',
+   ideen:[
+    {t:'Projekt mit Schule in anderem Sprachgebiet — gemeinsames Lied, je eine Strophe',tags:['US','MS','Musik','D/F/E']},
+    {t:'Rezeptaustausch mit Familien verschiedener Kulturen → echtes Buch entsteht',tags:['KG','US','MS','WAH','BNE']},
+    {t:'Kontakt zu Schule in anderer Klimazone: gleiche Frage, ganz andere Antworten',tags:['OS','BNE','NMG']},
+    {t:'Expert:in aus dem Dorf oder Berufsleben einladen — Fragen wirklich vorbereiten',tags:['KG','US','MS','OS','SoftSkills','BO']},
+    {t:'Podcast-Austausch mit Parallelklasse aus einem anderen Kanton',tags:['MS','OS','D/F/E','M&I']},
+    {t:'Gemeinsames Dokument mit Partnerschule zu einem geteilten Thema erarbeiten',tags:['OS','M&I','fachübergr.']},
+    {t:'Grosseltern interviewen zu einem Thema, das beide Generationen betrifft',tags:['MS','OS','NMG','SoftSkills','D/F/E']},
+    {t:'Schulprojekt gemeinsam mit Gemeinde oder lokaler Organisation umsetzen',tags:['MS','OS','BNE','fachübergr.']},
+    {t:'Berufspersonen aus verschiedenen Feldern befragen — als echte Berufserkundung',tags:['OS','BO','SoftSkills']},
+    {t:'Brieffreundschaft in der Fremdsprache mit realer Partnerklasse aufbauen',tags:['US','MS','OS','D/F/E']},
+  ]},
+  {id:8,color:'#2B8FBF',name:'Digitale Logik erleben',sub:'Algorithmen, Daten und Systeme selbst erfahren',
+   ideen:[
+    {t:'Regelwerk für einen einfachen Entscheidungsbaum schreiben ("Wenn X, dann Y…")',tags:['MS','OS','M&I','fachübergr.']},
+    {t:'Eigene Daten erheben, visualisieren, interpretieren — Wetter, Lärm, Schritte',tags:['US','MS','OS','NMG','M&I']},
+    {t:'Suchexperiment: dasselbe Suchwort auf verschiedenen Geräten — was kommt raus?',tags:['MS','OS','M&I','BNE']},
+    {t:'Schritte, Puls, Leistung messen + eigene Daten selbst interpretieren',tags:['MS','OS','Sport','M&I']},
+    {t:'Einfachen CO2-Rechner selbst bauen statt einen bestehenden zu benutzen',tags:['OS','BNE','M&I']},
+    {t:'Bilder sortieren, Muster erkennen — eigenes "Modell" trainieren und hinterfragen',tags:['MS','OS','M&I']},
+    {t:'Filterblasen-Erfahrung: gleiche Frage, unterschiedliche Plattformen, andere Antworten',tags:['OS','M&I','BNE']},
+    {t:'Einkaufsliste nach eigenen Regeln automatisieren — Mengen, Budget, Saison',tags:['MS','OS','WAH','M&I']},
+    {t:'Grammatikfehler-Muster aus eigenen Texten systematisch analysieren und visualisieren',tags:['MS','OS','D/F/E','M&I']},
+    {t:'Stellenanzeigen analysieren: Welche Fähigkeiten werden immer öfter gesucht?',tags:['OS','BO','M&I']},
+  ]},
+  {id:9,color:'#9E8A20',name:'Version 1 ist ein Anfang',sub:'Iteration statt einmaliger Abgabe',
+   ideen:[
+    {t:'Text schreiben → Feedback echter Lesenden einholen → Version 2 schreiben',tags:['US','MS','OS','D/F/E']},
+    {t:'Gericht kochen → Feedback einholen → Rezept überarbeiten → nochmals kochen',tags:['MS','OS','WAH']},
+    {t:'Song aufnehmen → zuhören → eine Sache gezielt verbessern → nochmals aufnehmen',tags:['US','MS','OS','Musik']},
+    {t:'Lernplan erstellen → nach zwei Wochen evaluieren → anpassen',tags:['MS','OS','Strategien']},
+    {t:'Prototyp bauen → testen → anpassen — auch im Sachunterricht und NMG möglich',tags:['US','MS','NMG','M&I']},
+    {t:'Projekt von einer Klasse an die nächste "vererben" und weiterentwickeln lassen',tags:['MS','OS','fachübergr.']},
+    {t:'Feedback-Kultur als wöchentliche Routine — nicht als Einzelanlass',tags:['KG','US','MS','OS','SoftSkills']},
+    {t:'Bewegungssequenz üben → filmen → analysieren → nochmals verbessern',tags:['US','MS','OS','Sport']},
+    {t:'Bewerbungsunterlagen mit Mitschüler:innen gegenseitig überarbeiten',tags:['OS','BO','D/F/E','SoftSkills']},
+    {t:'Fremdsprachigen Text überarbeiten nach Austausch mit echten Muttersprachler:innen',tags:['MS','OS','D/F/E']},
+  ]},
+];
+
+// collect all tags
+const ALL_TAGS = ['KG','US','MS','OS','fachübergr.','BNE','M&I','SoftSkills','Strategien','BO','D/F/E','NMG','WAH','Sport','Musik','BG'];
+const STUFEN = ['KG','US','MS','OS'];
+
+let shuffleCount = 0;
+let activeFilter = null;
+let usedIds = new Set();
+
+function allIdeen(){
+  return P.flatMap(p=>p.ideen.map(i=>({...i,pid:p.id,pname:p.name,color:p.color})));
+}
+
+function shuffle(){
+  shuffleCount++;
+  const counter = document.getElementById('shuffle-count');
+
+  // build pool excluding recently shown
+  let pool = allIdeen();
+  if(usedIds.size > pool.length * 0.6) usedIds.clear();
+  pool = pool.filter(i => !usedIds.has(i.t));
+
+  // pick 3 random
+  pool.sort(()=>Math.random()-0.5);
+  const picks = pool.slice(0,3);
+  picks.forEach(i=>usedIds.add(i.t));
+
+  // hint after 3 shuffles
+  if(shuffleCount >= 3){
+    document.querySelector('.btn-explore').style.opacity='1';
+    document.querySelector('.btn-explore').style.fontWeight='500';
+    document.querySelector('.btn-explore').style.color='var(--ink2)';
+  }
+
+  counter.textContent = shuffleCount > 1 ? shuffleCount + '. Runde' : '';
+
+  const stage = document.getElementById('card-stage');
+  stage.style.opacity='0';
+  stage.style.transform='translateY(6px)';
+  stage.style.transition='opacity 0.18s ease, transform 0.18s ease';
+
+  setTimeout(()=>{
+    renderShelf(picks);
+    stage.style.opacity='1';
+    stage.style.transform='translateY(0)';
+  },180);
+}
+
+function renderShelf(picks){
+  const stage = document.getElementById('card-stage');
+  stage.innerHTML='';
+  picks.forEach((item,i)=>{
+    const card = document.createElement('div');
+    card.className='karte';
+    const tagsHTML = item.tags.map(t=>`<span class="ktag" onclick="filterAndExplore('${t}')">${t}</span>`).join('');
+    card.innerHTML=`
+      <div class="karte-stripe" style="background:${item.color}"></div>
+      <div class="karte-body">
+        <div class="karte-prinzip" style="color:${item.color}">${item.pname}</div>
+        <div class="karte-idee">${item.t}</div>
+        <div class="karte-tags">${tagsHTML}</div>
+      </div>`;
+    stage.appendChild(card);
+  });
+}
+
+function filterAndExplore(tag){
+  activeFilter = tag;
+  goExplore();
+}
+
+function goExplore(){
+  document.getElementById('mode-discover').style.display='none';
+  const ex = document.getElementById('mode-explore');
+  ex.classList.add('visible');
+  buildFilterBar();
+  renderExplore();
+  window.scrollTo(0,0);
+}
+
+function goDiscover(){
+  document.getElementById('mode-explore').classList.remove('visible');
+  document.getElementById('mode-discover').style.display='flex';
+  window.scrollTo(0,0);
+}
+
+function buildFilterBar(){
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML='<span class="filter-label">Filter:</span>';
+
+  const btn0 = document.createElement('button');
+  btn0.className='fbtn'+(activeFilter===null?' on':'');
+  btn0.textContent='Alle';
+  btn0.onclick=()=>{activeFilter=null;setActiveBtn(btn0);renderExplore()};
+  bar.appendChild(btn0);
+
+  ALL_TAGS.forEach(tag=>{
+    const btn=document.createElement('button');
+    btn.className='fbtn'+(activeFilter===tag?' on':'');
+    btn.textContent=tag;
+    btn.onclick=()=>{activeFilter=tag;setActiveBtn(btn);renderExplore()};
+    bar.appendChild(btn);
+  });
+}
+
+function setActiveBtn(el){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function renderExplore(){
+  const content = document.getElementById('explore-content');
+  const countEl = document.getElementById('result-count');
+  content.innerHTML='';
+
+  let totalVisible=0;
+
+  P.forEach((p,pi)=>{
+    const filtered = activeFilter
+      ? p.ideen.filter(i=>i.tags.includes(activeFilter))
+      : p.ideen;
+
+    if(filtered.length===0) return;
+    totalVisible += filtered.length;
+
+    const sec = document.createElement('div');
+    sec.className='prinzip-section';
+
+    const head = document.createElement('div');
+    head.className='prinzip-section-head';
+    head.innerHTML=`
+      <div class="prinzip-dot" style="background:${p.color}"></div>
+      <span class="prinzip-nr">0${p.id}</span>
+      <span class="prinzip-name">${p.name}</span>
+      <span class="prinzip-sub">— ${p.sub}</span>`;
+    sec.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className='explore-grid';
+
+    filtered.forEach((item,i)=>{
+      const card = document.createElement('div');
+      card.className='e-karte';
+      card.style.animationDelay=(i*0.03)+'s';
+      const tagsHTML=item.tags.map(t=>`<span class="e-ktag" onclick="activeFilter='${t}';setActiveBtn(document.querySelectorAll('.fbtn')[${ALL_TAGS.indexOf(t)+1}]);renderExplore()">${t}</span>`).join('');
+      card.innerHTML=`
+        <div class="e-karte-stripe" style="background:${p.color}"></div>
+        <div class="e-karte-body">
+          <div class="e-karte-idee">${item.t}</div>
+          <div class="e-karte-tags">${tagsHTML}</div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    sec.appendChild(grid);
+    content.appendChild(sec);
+  });
+
+  if(totalVisible===0){
+    content.innerHTML='<div class="no-results">Keine Ideen für diesen Filter gefunden.</div>';
+  }
+
+  const label = activeFilter ? ` für «${activeFilter}»` : '';
+  countEl.textContent=`${totalVisible} Idee${totalVisible!==1?'n':''} ${label}`;
+}
+
+// init
+document.querySelector('.btn-explore').style.opacity='0.5';
+shuffle();
+</script>
+</body>
+</html>
