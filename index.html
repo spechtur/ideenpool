@@ -517,6 +517,63 @@ body::before{
   letter-spacing:0.06em;
 }
 
+
+/* ── PRINZIP INFO PANEL ── */
+.prinzip-info{
+  border-left:3px solid;
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+  animation:fadeUp 0.3s ease both;
+}
+
+.pi-warum{
+  font-family:var(--f-body);
+  font-size:13px;
+  line-height:1.65;
+  color:var(--ink2);
+  margin-bottom:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--line);
+}
+
+.pi-compare{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:14px;
+  align-items:start;
+}
+
+.pi-arrow{
+  font-family:var(--f-mono);
+  font-size:18px;
+  padding-top:18px;
+  opacity:0.7;
+}
+
+.pi-label{
+  font-family:var(--f-mono);
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink3);
+  margin-bottom:6px;
+}
+
+.pi-text{
+  font-size:12px;
+  line-height:1.6;
+  color:var(--ink);
+}
+
+@media(max-width:600px){
+  .pi-compare{grid-template-columns:1fr;gap:10px}
+  .pi-arrow{display:none}
+}
+
 /* ── ANIMATIONS ── */
 @keyframes cardIn{
   from{opacity:0;transform:translateY(10px)}
@@ -591,6 +648,7 @@ const FAECHER = ['NMG','Mathe','WAH','TTG','BG','Musik','Sport','D/F/E','ERG','R
 
 const P = [
   {id:1,color:'#E07A10',bg:'rgba(224,122,16,0.08)',name:'Echtes Publikum',sub:'Lernprodukte verlassen die Klasse',
+   info:{warum:'Wenn Lernprodukte nur für die LP entstehen, fehlt ein entscheidender Motivationsmotor: das Bewusstsein, dass die eigene Arbeit für jemanden zählt. In einer Kultur der Digitalität ist Publizieren einfacher denn je — das verändert, was Schule produzieren kann.',vorher:'Die LP ist das Publikum. Sie bewertet, gibt zurück, legt ab. Das war jahrzehntelang die logische Struktur — und sie hat funktioniert.',nachher:'Lernprodukte können echte Menschen ausserhalb der Klasse adressieren. Das verändert, wie Kinder schreiben, gestalten, argumentieren — nicht weil man es ihnen sagt, sondern weil sie es spüren.'},
    ideen:[
     {t:'NMG-Projekt Kücken ausbrüten → Blog hält Eltern live auf dem Laufenden',s:['KG','US'],f:['NMG','fachübergr.']},
     {t:'Schulhausrundgang als Audio-Guide für neue Erstklässler selbst produzieren',s:['US'],f:['D/F/E','fachübergr.']},
@@ -606,6 +664,7 @@ const P = [
     {t:'Geometrische Kunstwerke aus TTG ausstellen und den Entstehungsprozess dokumentieren',s:['MS','OS'],f:['TTG','Mathe']},
   ]},
   {id:2,color:'#1A9E8F',bg:'rgba(26,158,143,0.07)',name:'Verwesentlichen im Überfluss',sub:'Im Überfluss das Wichtige erkennen und auswählen',
+   info:{warum:'Die digitale Welt dreht das alte Knappheitsproblem um: Nicht Zugang zu Information ist die Herausforderung, sondern Orientierung im Überfluss. Auswählen, bewerten und begründen sind Kernkompetenzen der Digitalität — aber Schule hat sie lange vernachlässigt.',vorher:'Die LP wählt aus, was relevant ist. Die Schüler:innen arbeiten mit dem Ausgewählten. Das ist effizient — und schützt vor Überforderung.',nachher:'Schüler:innen üben selbst das Auswählen und Begründen. Die Fähigkeit zu verwesentlichen ist keine Zusatzkompetenz — sie ist das, was Menschen von Algorithmen unterscheidet.'},
    ideen:[
     {t:'Kuratierte Linksammlung zu einem Thema für die Nachfolgeklasse aufbauen',s:['MS','OS'],f:['M&I']},
     {t:'"Das beste Video zu diesem Thema" — mit schriftlicher Begründung',s:['MS','OS'],f:['fachübergr.']},
@@ -621,6 +680,7 @@ const P = [
     {t:'Historische Quellen zu einem RZG-Thema bewerten: Was ist glaubwürdig?',s:['OS'],f:['RZG','M&I']},
   ]},
   {id:3,color:'#C0455A',bg:'rgba(192,69,90,0.07)',name:'Den Denkweg zeigen',sub:'Nicht das Ergebnis — der Prozess zählt',
+   info:{warum:'Digitale Werkzeuge machen es leicht, nur das polierte Ergebnis zu zeigen — und sie machen das Überarbeiten so leicht wie kaum zuvor. Dabei liegt das Lernen im Weg dorthin: in den Umwegen, Fehlern und Entscheidungen. Wer den Prozess dokumentiert, lernt über das eigene Denken nachzudenken.',vorher:'Das fertige Produkt wird abgegeben und bewertet. Der Weg dorthin bleibt unsichtbar — für die LP, aber auch für die Lernenden selbst.',nachher:'Der Denkweg wird Teil des Lernprodukts. Das macht Metakognition konkret — und zeigt, dass Lernen kein gerader Weg ist, sondern ein iterativer.'},
    ideen:[
     {t:'Lernvideo: nicht das Ergebnis zeigen, sondern wie man darauf gekommen ist',s:['MS','OS'],f:['fachübergr.']},
     {t:'Fehler-Logbuch führen: Was hat nicht funktioniert — und was wurde daraus gelernt?',s:['US','MS'],f:['fachübergr.']},
@@ -636,6 +696,7 @@ const P = [
     {t:'ERG-Reflexion: Wie hat sich meine Haltung zu einer ethischen Frage verändert?',s:['OS'],f:['ERG']},
   ]},
   {id:4,color:'#3A6FC4',bg:'rgba(58,111,196,0.07)',name:'Echte Probleme',sub:'Keine Schulaufgaben — Fragen aus der Welt',
+   info:{warum:'Konstruierte Schulaufgaben haben ihren pädagogischen Sinn — aber sie erzeugen oft eine künstliche Distanz zur Welt. In einer Kultur der Digitalität haben Schüler:innen Zugang zu echten Daten, echten Gesprächspartner:innen und echten Publikationsmöglichkeiten. Das eröffnet neue didaktische Räume.',vorher:'Die Aufgabe ist so gestaltet, dass eine Lösung erreichbar ist. Das schafft Sicherheit — und ermöglicht gezieltes Üben.',nachher:'Echte Probleme haben offene Ausgänge. Sie verlangen Urteilsvermögen statt Lösungsabruf — und sie machen Lernen bedeutsam, weil die Antwort wirklich gebraucht wird.'},
    ideen:[
     {t:'Wie wird unser Schulhof besser? → Befragung, Konzept, Präsentation vor Schulleitung',s:['US','MS'],f:['fachübergr.','BNE']},
     {t:'Welche Geschichte steckt hinter diesem alten Haus im Dorf? → Recherche, Interview, Doku',s:['MS','OS'],f:['RZG','D/F/E']},
@@ -651,6 +712,7 @@ const P = [
     {t:'Wie hat sich unser Dorf in 100 Jahren verändert — und warum?',s:['MS','OS'],f:['RZG','fachübergr.']},
   ]},
   {id:5,color:'#3EA83E',bg:'rgba(62,168,62,0.07)',name:'Gestalten, nicht konsumieren',sub:'Schüler:innen als Produzent:innen',
+   info:{warum:'Digitale Medien verführen zum passiven Konsum. Gleichzeitig ermöglichen sie niederschwelliges Produzieren wie nie zuvor. Typisch für die Digitalität: Die Grenze zwischen Produzierenden und Konsumierenden löst sich auf — Prosumenten gestalten und nutzen gleichzeitig. Schüler:innen als Produzent:innen zu verstehen verändert die Grundhaltung zum Lernen.',vorher:'Die LP gestaltet das Lernsetting, die Schüler:innen arbeiten darin. Das ist eine klare, funktionierende Rollenverteilung.',nachher:'Schüler:innen übernehmen zunehmend Gestaltungsverantwortung. Das ist keine Entlastung der LP — es ist eine andere, anspruchsvollere Form des Lernens.'},
    ideen:[
     {t:'Nicht nach Rezept kochen — eigenes Rezept für eine bestimmte Situation entwickeln',s:['MS','OS'],f:['WAH']},
     {t:'Lied für einen konkreten Anlass komponieren: Abschied, Schuleinweihung, Jubiläum',s:['US','MS','OS'],f:['Musik']},
@@ -666,6 +728,7 @@ const P = [
     {t:'Objekt aus TTG gestalten, das ein echtes Problem im Schulhaus löst',s:['MS','OS'],f:['TTG','fachübergr.']},
   ]},
   {id:6,color:'#B05E2E',bg:'rgba(176,94,46,0.07)',name:'Analog und Digital verschränken',sub:'Das eine verstärkt das andere',
+   info:{warum:'Digitalität ist kein Gegensatz zum Analogen — sie ist eine Erweiterung. Die stärksten Lernsettings entstehen oft dort, wo beide Schichten sich ergänzen: das Analoge gibt Tiefe, das Digitale gibt Reichweite.',vorher:'Analog und digital sind oft getrennte Welten im Unterricht. Das eine "ersetzt" das andere — oder beide laufen parallel, ohne sich zu berühren.',nachher:'Die Verschränkung wird bewusst gestaltet. Das digitale Layer erweitert, was das Analoge allein nicht kann — und digitale Werkzeuge machen diese Erweiterung über Grenzen, Zeitzonen und grosse Distanzen hinweg spielend leicht.'},
    ideen:[
     {t:'Selbstportraits als Plakate gestalten + QR-Code mit Stimme und Video ergänzen',s:['US','MS'],f:['BG','D/F/E']},
     {t:'Kunstwerke analog oder digital → VR-Ausstellung für Eltern zugänglich machen',s:['MS','OS'],f:['BG']},
@@ -681,6 +744,7 @@ const P = [
     {t:'Historische Karte zeichnen + mit aktuellen Satellitenbildern überlagern',s:['OS'],f:['RZG','M&I']},
   ]},
   {id:7,color:'#7E55B8',bg:'rgba(126,85,184,0.07)',name:'Mit der Welt lernen',sub:'Über die Klasse hinaus denken und handeln',
+   info:{warum:'Lernen war lange ein lokales Ereignis: Klasse, Schulhaus, Gemeinde. Digitalität macht Verbindungen möglich, die früher logistisch kaum denkbar waren. Das verändert, wer am Lernen beteiligt sein kann.',vorher:'Die Lerngemeinschaft ist die Klasse. Expert:innenwissen kommt durch die LP oder das Lehrmittel. Das ist verlässlich — und überschaubar.',nachher:'Die Klasse öffnet sich. Andere Schüler:innen, Fachpersonen, Generationen und Kulturen werden zu echten Lernpartner:innen — digital fällt diese Erweiterung über grosse Distanzen hinweg leichter denn je.'},
    ideen:[
     {t:'Projekt mit Schule in anderem Sprachgebiet — gemeinsames Lied, je eine Strophe',s:['US','MS'],f:['Musik','D/F/E']},
     {t:'Rezeptaustausch mit Familien verschiedener Kulturen → echtes Buch entsteht',s:['KG','US','MS'],f:['WAH','BNE']},
@@ -696,6 +760,7 @@ const P = [
     {t:'ERG-Debatte mit einer anderen Klasse zu einer ethischen Frage führen',s:['OS'],f:['ERG','D/F/E']},
   ]},
   {id:8,color:'#1A8FBF',bg:'rgba(26,143,191,0.07)',name:'Digitale Logik erleben',sub:'Algorithmen, Daten und Systeme selbst erfahren',
+   info:{warum:'Algorithmen, Daten und Systeme prägen zunehmend, wie die Welt funktioniert. Wer diese Logik nur konsumiert, ist ihr ausgeliefert. Wer sie selbst erlebt und hinterfragt, gewinnt Handlungsfähigkeit.',vorher:'Digitale Werkzeuge werden genutzt. Was dahintersteckt, bleibt unsichtbar — und das war lange auch nicht nötig zu verstehen.',nachher:'Schüler:innen bauen selbst einfache Modelle, erheben Daten, erleben Filterblasen. Nicht um Informatiker:innen zu werden — sondern um mündige Teilnehmer:innen der digitalen Gesellschaft zu sein.'},
    ideen:[
     {t:'Regelwerk für einen einfachen Entscheidungsbaum schreiben ("Wenn X, dann Y…")',s:['MS','OS'],f:['M&I','fachübergr.']},
     {t:'Eigene Daten erheben, visualisieren, interpretieren — Wetter, Lärm, Schritte',s:['US','MS','OS'],f:['NMG','M&I']},
@@ -711,6 +776,7 @@ const P = [
     {t:'Mathe-Muster in der Natur entdecken und mit eigenen Fotos belegen',s:['US','MS'],f:['Mathe','NMG']},
   ]},
   {id:9,color:'#9E8A20',bg:'rgba(158,138,32,0.07)',name:'Version 1 ist ein Anfang',sub:'Iteration statt einmaliger Abgabe',
+   info:{warum:'In der digitalen Welt ist Iteration die Norm — Software, Texte, Designs werden laufend überarbeitet. Schule hat lange das Gegenteil kultiviert: eine Abgabe, eine Note, fertig. Das ist ein Kulturunterschied, der sich lohnt zu reflektieren.',vorher:'Eine Arbeit wird abgegeben und bewertet. Das ist klar, fair — und entspricht dem, was Schüler:innen und LP gewohnt sind.',nachher:'Überarbeiten wird zur Lernhandlung. Feedback ist kein Urteil, sondern Material. Das Bewusstsein, dass Version 1 immer ein Anfang ist, verändert die Haltung zum eigenen Können.'},
    ideen:[
     {t:'Text schreiben → Feedback echter Lesenden einholen → Version 2 schreiben',s:['US','MS','OS'],f:['D/F/E']},
     {t:'Gericht kochen → Feedback einholen → Rezept überarbeiten → nochmals kochen',s:['MS','OS'],f:['WAH']},
@@ -903,6 +969,26 @@ function renderExplore(){
       renderExplore();
     };
     block.appendChild(head);
+
+    if(filterPrinzip===p.id && p.info){
+      const info = document.createElement('div');
+      info.className='prinzip-info';
+      info.style.borderColor=p.color;
+      info.innerHTML=`
+        <div class="pi-warum">${p.info.warum}</div>
+        <div class="pi-compare">
+          <div class="pi-col">
+            <div class="pi-label">Bisher</div>
+            <div class="pi-text">${p.info.vorher}</div>
+          </div>
+          <div class="pi-arrow" style="color:${p.color}">→</div>
+          <div class="pi-col">
+            <div class="pi-label" style="color:${p.color}">Jetzt</div>
+            <div class="pi-text">${p.info.nachher}</div>
+          </div>
+        </div>`;
+      block.appendChild(info);
+    }
 
     const grid = document.createElement('div');
     grid.className='cards-grid';
