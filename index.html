@@ -698,7 +698,8 @@ body::before{
       <span class="ex-title">Alle Inspirationshäppchen</span>
       <button class="btn-back" onclick="goDiscover()">← Entdecken</button>
     </div>
-    <div class="filter-groups">
+    <button class="filter-toggle" id="filter-toggle" onclick="toggleFilters()">⚙ Filter anzeigen</button>
+    <div class="filter-groups" id="filter-groups">
       <div class="filter-row">
         <span class="filter-row-label">Stufe</span>
         <div id="filter-stufe" style="display:flex;gap:5px;flex-wrap:wrap"></div>
