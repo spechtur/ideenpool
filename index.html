@@ -1121,9 +1121,15 @@ function toggleFilters(){
   const fg = document.getElementById('filter-groups');
   const btn = document.getElementById('filter-toggle');
   if(filtersVisible){
+    fg.style.maxHeight = fg.scrollHeight + 'px';
+    fg.style.opacity = '1';
+    fg.style.pointerEvents = 'auto';
     fg.classList.remove('collapsed');
     btn.textContent = '⚙ Filter ausblenden';
   } else {
+    fg.style.maxHeight = '0';
+    fg.style.opacity = '0';
+    fg.style.pointerEvents = 'none';
     fg.classList.add('collapsed');
     btn.textContent = '⚙ Filter anzeigen';
   }
@@ -1134,7 +1140,7 @@ function initMobileFilters(){
   if(window.innerWidth <= 700){
     filtersVisible = false;
     const fg = document.getElementById('filter-groups');
-    if(fg){ fg.classList.add('collapsed'); fg.style.maxHeight='0'; }
+    if(fg){ fg.classList.add('collapsed'); fg.style.maxHeight='0'; fg.style.opacity='0'; }
     const btn = document.getElementById('filter-toggle');
     if(btn) btn.textContent = '⚙ Filter anzeigen';
   }
