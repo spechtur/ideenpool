@@ -94,18 +94,27 @@ body::before{
   line-height:1.12;
   margin-bottom:10px;
   letter-spacing:-0.01em;
-  background:linear-gradient(90deg,#4c3fb8,#7c6ff0 45%,#2bb3a3 85%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  color:var(--ink);
 }
 
+/* Farbverlauf wird direkt auf den einzelnen Spans geklippt (nicht auf
+   .d-title selbst), da sonst z.B. Safari den Text nicht ausstanzt und
+   nur eine deckende Farbbox statt der Buchstaben zeigt. */
 .d-title span{
   display:inline;
   position:relative;
+  background-image:linear-gradient(90deg,#4c3fb8,#7c6ff0 45%,#2bb3a3 85%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
 }
 
 .d-title .accent{
+  background-image:none;
+  -webkit-background-clip:initial;
+  background-clip:initial;
+  -webkit-text-fill-color:transparent;
   color:transparent;
   -webkit-text-stroke:2px var(--violet);
   font-style:normal;
