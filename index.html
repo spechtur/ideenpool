@@ -4,26 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ideenpool & Inspirationshäppchen</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#f8f9fc;
-  --surface:#ffffff;
-  --surface2:#f2f4f8;
-  --ink:#0a0c12;
-  --ink2:#4a5068;
-  --ink3:#9098b0;
-  --line:rgba(10,12,30,0.08);
-  --line2:rgba(10,12,30,0.15);
-  --shadow:0 2px 8px rgba(10,12,30,0.07),0 0 1px rgba(10,12,30,0.06);
-  --shadow-lift:0 12px 36px rgba(10,12,30,0.12),0 2px 6px rgba(10,12,30,0.06);
-  --f-display:'Space Mono',monospace;
-  --f-mono:'IBM Plex Mono',monospace;
+  --bg:#f5f4fb;
+  --surface:rgba(255,255,255,0.6);
+  --surface2:rgba(255,255,255,0.4);
+  --ink:#211f2e;
+  --ink2:#5b5872;
+  --ink3:#8e8ba6;
+  --line:rgba(40,30,70,0.10);
+  --line2:rgba(40,30,70,0.18);
+  --shadow:0 4px 18px rgba(60,40,110,0.07),0 1px 2px rgba(60,40,110,0.05);
+  --shadow-lift:0 20px 48px rgba(60,40,110,0.14),0 4px 10px rgba(60,40,110,0.07);
+  --f-display:'Fraunces',Georgia,serif;
+  --f-mono:'DM Sans',system-ui,sans-serif;
   --f-body:'DM Sans',system-ui,sans-serif;
-  --radius:10px;
+  --radius:20px;
+  --violet:#7c6ff0;
+  --violet-ink:#4c3fb8;
+  --teal:#2bb3a3;
+  --coral:#f0967a;
+  --glass-blur:blur(22px) saturate(170%);
 }
+
+*{box-sizing:border-box;}
 
 body{
   font-family:var(--f-body);
@@ -33,15 +40,19 @@ body{
   overflow-x:hidden;
 }
 
-/* subtle grid bg */
+/* soft glass backdrop - eigene Farbwelt (Indigo/Teal/Koralle statt Amber/Pink/Blau) */
 body::before{
   content:'';
   position:fixed;
   inset:0;
-  background-image:
-    linear-gradient(rgba(10,12,30,0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10,12,30,0.024) 1px, transparent 1px);
-  background-size:40px 40px;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(124,111,240,0.28), transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(43,179,163,0.26), transparent 45%),
+    radial-gradient(circle at 85% 78%, rgba(240,150,122,0.24), transparent 45%),
+    radial-gradient(circle at 12% 82%, rgba(196,132,252,0.22), transparent 45%),
+    radial-gradient(circle at 50% 45%, rgba(124,111,240,0.08), transparent 60%),
+    linear-gradient(180deg, #f7f6fc 0%, #eef0f6 100%);
+  background-attachment:fixed;
   pointer-events:none;
   z-index:0;
 }
@@ -61,23 +72,32 @@ body::before{
 
 .d-eyebrow{
   font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.18em;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.14em;
   text-transform:uppercase;
-  color:var(--ink3);
-  margin-bottom:14px;
+  color:var(--violet-ink);
+  margin-bottom:16px;
   text-align:center;
+  padding:7px 16px;
+  border-radius:999px;
+  background:rgba(124,111,240,0.12);
+  border:1px solid rgba(124,111,240,0.2);
 }
 
 .d-title{
   font-family:var(--f-display);
-  font-size:clamp(22px,4vw,44px);
-  font-weight:800;
+  font-size:clamp(28px,5vw,52px);
+  font-weight:600;
+  font-style:italic;
   text-align:center;
-  line-height:1.05;
-  margin-bottom:8px;
-  color:var(--ink);
-  letter-spacing:-0.02em;
+  line-height:1.12;
+  margin-bottom:10px;
+  letter-spacing:-0.01em;
+  background:linear-gradient(90deg,#4c3fb8,#7c6ff0 45%,#2bb3a3 85%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
 .d-title span{
@@ -87,7 +107,8 @@ body::before{
 
 .d-title .accent{
   color:transparent;
-  -webkit-text-stroke:2px var(--ink);
+  -webkit-text-stroke:2px var(--violet);
+  font-style:normal;
 }
 
 .d-sub{
@@ -95,8 +116,9 @@ body::before{
   color:var(--ink3);
   text-align:center;
   margin-bottom:52px;
-  font-family:var(--f-mono);
-  letter-spacing:0.02em;
+  font-family:var(--f-body);
+  font-style:italic;
+  letter-spacing:0.01em;
 }
 
 /* ── SHELF ── */
@@ -113,13 +135,15 @@ body::before{
 
 .karte{
   background:var(--surface);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
   border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.6);
   width:280px;
   flex-shrink:0;
   overflow:hidden;
   cursor:pointer;
-  border:1px solid var(--line);
+  border:1px solid rgba(255,255,255,0.7);
   transition:transform 0.28s cubic-bezier(.22,1,.36,1), box-shadow 0.22s ease;
   position:relative;
 }
@@ -130,27 +154,22 @@ body::before{
 
 .karte:hover{
   transform:rotate(0deg) translateY(-8px) scale(1.01) !important;
-  box-shadow:var(--shadow-lift);
+  box-shadow:var(--shadow-lift), inset 0 1px 0 rgba(255,255,255,0.7);
   z-index:20;
-  border-color:var(--line2);
-}
-
-.karte-stripe{
-  height:4px;
-  width:100%;
+  border-color:rgba(255,255,255,0.9);
 }
 
 .karte-body{
-  padding:18px 20px 16px;
+  padding:20px 22px 18px;
 }
 
 .karte-prinzip{
   font-family:var(--f-mono);
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:0.14em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.1em;
   text-transform:uppercase;
-  margin-bottom:10px;
+  margin-bottom:12px;
   display:flex;
   align-items:center;
   gap:6px;
@@ -167,9 +186,9 @@ body::before{
 
 .karte-idee{
   font-family:var(--f-display);
-  font-size:15px;
-  font-weight:600;
-  line-height:1.4;
+  font-size:17px;
+  font-weight:500;
+  line-height:1.42;
   color:var(--ink);
   margin-bottom:16px;
   letter-spacing:-0.01em;
@@ -178,21 +197,21 @@ body::before{
 .karte-tags{
   display:flex;
   flex-wrap:wrap;
-  gap:5px;
+  gap:6px;
 }
 
 .ktag{
   font-family:var(--f-mono);
-  font-size:9px;
-  font-weight:500;
-  padding:3px 8px;
-  border-radius:4px;
+  font-size:10px;
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:999px;
   border:1px solid var(--line2);
   color:var(--ink2);
-  background:var(--surface2);
+  background:rgba(255,255,255,0.55);
   cursor:pointer;
   transition:all 0.13s;
-  letter-spacing:0.04em;
+  letter-spacing:0.02em;
 }
 
 .ktag.stufen-tag{
@@ -200,9 +219,9 @@ body::before{
 }
 
 .ktag:hover{
-  background:var(--ink);
-  color:var(--surface);
-  border-color:var(--ink);
+  background:var(--violet);
+  color:#fff;
+  border-color:var(--violet);
 }
 
 /* ── ACTIONS ── */
@@ -215,45 +234,45 @@ body::before{
 
 .d-count{
   font-family:var(--f-mono);
-  font-size:10px;
+  font-size:11px;
   color:var(--ink3);
-  letter-spacing:0.08em;
+  letter-spacing:0.04em;
   min-height:14px;
 }
 
 .btn-shuffle{
-  font-family:var(--f-display);
-  font-size:13px;
+  font-family:var(--f-body);
+  font-size:14px;
   font-weight:700;
-  padding:13px 36px;
-  border-radius:40px;
-  border:2px solid var(--ink);
-  background:var(--ink);
-  color:var(--surface);
+  padding:14px 38px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.5);
+  background:linear-gradient(90deg,var(--violet-ink),var(--violet) 60%,var(--teal));
+  color:#fff;
   cursor:pointer;
   letter-spacing:0.01em;
-  transition:all 0.16s;
-  box-shadow:4px 4px 0 rgba(10,12,30,0.12);
+  transition:all 0.18s;
+  box-shadow:0 10px 30px rgba(76,63,184,0.28), inset 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .btn-shuffle:hover{
-  transform:translate(-2px,-2px);
-  box-shadow:6px 6px 0 rgba(10,12,30,0.15);
+  transform:translateY(-2px);
+  box-shadow:0 14px 36px rgba(76,63,184,0.34), inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
 .btn-shuffle:active{
-  transform:translate(1px,1px);
-  box-shadow:2px 2px 0 rgba(10,12,30,0.10);
+  transform:translateY(0);
+  box-shadow:0 6px 18px rgba(76,63,184,0.24), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 .btn-to-explore{
   font-family:var(--f-mono);
-  font-size:10px;
+  font-size:11px;
   color:var(--ink3);
   background:none;
   border:none;
   cursor:pointer;
-  letter-spacing:0.06em;
+  letter-spacing:0.04em;
   text-transform:uppercase;
   padding:4px 8px;
   transition:color 0.14s;
@@ -281,10 +300,11 @@ body::before{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(248,249,252,0.92);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  background:rgba(247,246,252,0.78);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid rgba(255,255,255,0.6);
+  box-shadow:0 4px 24px rgba(60,40,110,0.05);
   padding:20px 40px 16px;
 }
 
@@ -298,27 +318,28 @@ body::before{
 
 .ex-title{
   font-family:var(--f-display);
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:-0.02em;
-  color:var(--ink);
+  font-size:20px;
+  font-weight:600;
+  font-style:italic;
+  letter-spacing:-0.01em;
+  color:var(--violet-ink);
 }
 
 .btn-back{
-  font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.08em;
-  text-transform:uppercase;
-  color:var(--ink3);
-  background:none;
+  font-family:var(--f-body);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  color:var(--ink2);
+  background:rgba(255,255,255,0.5);
   border:1px solid var(--line2);
-  border-radius:4px;
-  padding:6px 14px;
+  border-radius:999px;
+  padding:7px 16px;
   cursor:pointer;
   transition:all 0.14s;
 }
 
-.btn-back:hover{color:var(--ink);border-color:var(--ink)}
+.btn-back:hover{color:var(--ink);border-color:var(--violet);background:rgba(124,111,240,0.1)}
 
 /* ── FILTER GROUPS ── */
 .filter-groups{
@@ -336,8 +357,9 @@ body::before{
 
 .filter-row-label{
   font-family:var(--f-mono);
-  font-size:9px;
-  letter-spacing:0.12em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.1em;
   text-transform:uppercase;
   color:var(--ink3);
   min-width:44px;
@@ -346,36 +368,36 @@ body::before{
 
 .fbtn{
   font-family:var(--f-mono);
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:0.05em;
-  padding:4px 11px;
-  border-radius:4px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  padding:5px 13px;
+  border-radius:999px;
   border:1px solid var(--line2);
-  background:var(--surface);
+  background:rgba(255,255,255,0.5);
   color:var(--ink2);
   cursor:pointer;
   transition:all 0.12s;
 }
 
-.fbtn:hover{background:var(--surface2);color:var(--ink)}
+.fbtn:hover{background:rgba(255,255,255,0.85);color:var(--ink);border-color:var(--line2)}
 
 .fbtn.on{
-  background:var(--ink);
-  color:var(--surface);
-  border-color:var(--ink);
+  background:var(--violet);
+  color:#fff;
+  border-color:var(--violet);
 }
 
 .fbtn.prinzip-btn.on{
-  color:var(--surface);
+  color:#fff;
   border-color:transparent;
 }
 
 /* ── RESULT COUNT ── */
 .result-count{
   font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.08em;
+  font-size:11px;
+  letter-spacing:0.03em;
   color:var(--ink3);
 }
 
@@ -394,50 +416,55 @@ body::before{
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px 14px;
+  padding:13px 18px;
   border-radius:var(--radius);
   margin-bottom:14px;
   cursor:pointer;
-  transition:opacity 0.15s;
+  transition:opacity 0.15s, box-shadow 0.15s;
   border:1px solid transparent;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
   user-select:none;
 }
 
 .prinzip-head:hover{opacity:0.85}
-.prinzip-head.active-filter{border-color:currentColor;opacity:1}
+.prinzip-head.active-filter{opacity:1;box-shadow:var(--shadow)}
 
 .p-dot{
-  width:8px;
-  height:8px;
-  border-radius:2px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
   flex-shrink:0;
 }
 
 .p-nr{
   font-family:var(--f-mono);
   font-size:10px;
+  font-weight:700;
   color:inherit;
   opacity:0.7;
-  letter-spacing:0.06em;
+  letter-spacing:0.04em;
 }
 
 .p-name{
   font-family:var(--f-display);
-  font-size:16px;
-  font-weight:700;
+  font-size:18px;
+  font-weight:600;
+  font-style:italic;
   letter-spacing:-0.01em;
 }
 
 .p-sub{
   font-family:var(--f-body);
   font-size:12px;
-  opacity:0.65;
+  opacity:0.7;
 }
 
 .p-count{
   font-family:var(--f-mono);
   font-size:10px;
-  opacity:0.5;
+  font-weight:600;
+  opacity:0.6;
   margin-left:auto;
 }
 
@@ -450,86 +477,89 @@ body::before{
 
 .e-card{
   background:var(--surface);
-  border-radius:var(--radius);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-radius:14px;
   box-shadow:var(--shadow);
   overflow:hidden;
-  border:1px solid var(--line);
+  border:1px solid rgba(255,255,255,0.7);
   transition:box-shadow 0.18s,transform 0.18s,border-color 0.15s;
 }
 
 .e-card:hover{
   box-shadow:var(--shadow-lift);
-  transform:translateY(-2px);
-  border-color:var(--line2);
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,0.9);
 }
 
 .e-card.hidden{display:none}
 
-.e-stripe{height:3px}
-
 .e-body{
-  padding:12px 14px 10px;
+  padding:14px 16px 12px;
 }
 
 .e-text{
   font-family:var(--f-display);
-  font-size:13px;
-  font-weight:600;
-  line-height:1.45;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.48;
   color:var(--ink);
-  margin-bottom:10px;
+  margin-bottom:11px;
   letter-spacing:-0.005em;
 }
 
 .e-tags{
   display:flex;
   flex-wrap:wrap;
-  gap:4px;
+  gap:5px;
 }
 
 .e-tag{
   font-family:var(--f-mono);
-  font-size:9px;
-  font-weight:500;
-  padding:2px 7px;
-  border-radius:3px;
+  font-size:10px;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:999px;
   border:1px solid var(--line2);
   color:var(--ink2);
-  background:var(--surface2);
+  background:rgba(255,255,255,0.5);
   cursor:pointer;
   transition:all 0.11s;
-  letter-spacing:0.04em;
+  letter-spacing:0.02em;
 }
 
 .e-tag.s-tag{border-style:dashed}
-.e-tag:hover{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.e-tag:hover{background:var(--violet);color:#fff;border-color:var(--violet)}
 
 .no-results{
   grid-column:1/-1;
   text-align:center;
   padding:60px 20px;
   color:var(--ink3);
-  font-family:var(--f-mono);
-  font-size:12px;
-  letter-spacing:0.06em;
+  font-family:var(--f-body);
+  font-style:italic;
+  font-size:14px;
+  letter-spacing:0.01em;
 }
 
 
 /* ── PRINZIP INFO PANEL ── */
 .prinzip-info{
-  border-left:3px solid;
   background:var(--surface);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid rgba(255,255,255,0.7);
   border-radius:var(--radius);
-  padding:18px 20px;
+  padding:20px 22px;
   margin-bottom:18px;
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.6);
   animation:fadeUp 0.3s ease both;
 }
 
 .pi-warum{
   font-family:var(--f-body);
-  font-size:13px;
-  line-height:1.65;
+  font-size:13.5px;
+  line-height:1.7;
   color:var(--ink2);
   margin-bottom:16px;
   padding-bottom:16px;
@@ -552,17 +582,17 @@ body::before{
 
 .pi-label{
   font-family:var(--f-mono);
-  font-size:9px;
-  font-weight:500;
-  letter-spacing:0.14em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.1em;
   text-transform:uppercase;
   color:var(--ink3);
   margin-bottom:6px;
 }
 
 .pi-text{
-  font-size:12px;
-  line-height:1.6;
+  font-size:12.5px;
+  line-height:1.62;
   color:var(--ink);
 }
 
@@ -583,20 +613,20 @@ body::before{
 }
 
 .btn-collapse-all{
-  font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.08em;
-  text-transform:uppercase;
+  font-family:var(--f-body);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.02em;
   color:var(--ink3);
-  background:none;
+  background:rgba(255,255,255,0.45);
   border:1px solid var(--line2);
-  border-radius:4px;
-  padding:5px 12px;
+  border-radius:999px;
+  padding:6px 14px;
   cursor:pointer;
   transition:all 0.13s;
   white-space:nowrap;
 }
-.btn-collapse-all:hover{color:var(--ink);border-color:var(--ink2)}
+.btn-collapse-all:hover{color:var(--ink);border-color:var(--violet);background:rgba(124,111,240,0.1)}
 
 /* collapsed prinzip block */
 .prinzip-block.collapsed .cards-grid,
@@ -605,21 +635,21 @@ body::before{
 /* ── FILTER COLLAPSE (mobile) ── */
 .filter-toggle{
   display:none;
-  font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
+  font-family:var(--f-body);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.02em;
   color:var(--ink2);
-  background:none;
+  background:rgba(255,255,255,0.4);
   border:1px solid var(--line2);
-  border-radius:4px;
-  padding:6px 14px;
+  border-radius:999px;
+  padding:8px 16px;
   cursor:pointer;
   width:100%;
   text-align:left;
   transition:all 0.13s;
 }
-.filter-toggle:hover{background:var(--surface2)}
+.filter-toggle:hover{background:rgba(255,255,255,0.7)}
 
 .filter-groups{
   transition:max-height 0.25s ease, opacity 0.2s ease;
@@ -640,10 +670,11 @@ body::before{
 /* ── FOOTER ── */
 .site-footer{
   text-align:center;
-  padding:32px 20px 20px;
-  font-family:var(--f-mono);
-  font-size:10px;
-  letter-spacing:0.1em;
+  padding:32px 20px 24px;
+  font-family:var(--f-body);
+  font-size:11px;
+  font-style:italic;
+  letter-spacing:0.02em;
   color:var(--ink3);
   border-top:1px solid var(--line);
   margin-top:20px;
@@ -727,7 +758,7 @@ const STUFEN = ['KG','US','MS','OS'];
 const FAECHER = ['NMG','Mathe','WAH','TTG','BG','Musik','Sport','D/F/E','ERG','RZG','M&I','BO','BNE','SoftSkills','Strategien','fachübergr.'];
 
 const P = [
-  {id:1,color:'#E07A10',bg:'rgba(224,122,16,0.08)',name:'Echtes Publikum',sub:'Lernprodukte verlassen die Klasse',
+  {id:1,color:'#F2650F',bg:'rgba(242,101,15,0.10)',name:'Echtes Publikum',sub:'Lernprodukte verlassen die Klasse',
    info:{warum:'Wenn Lernprodukte nur für die LP entstehen, fehlt ein entscheidender Motivationsmotor: das Bewusstsein, dass die eigene Arbeit für jemanden zählt. In einer Kultur der Digitalität ist Publizieren einfacher denn je — das verändert, was Schule produzieren kann.',vorher:'Die LP ist das Publikum. Sie bewertet, gibt zurück, legt ab. Das war jahrzehntelang die logische Struktur — und sie hat funktioniert.',nachher:'Lernprodukte können echte Menschen ausserhalb der Klasse adressieren. Das verändert, wie Kinder schreiben, gestalten, argumentieren — nicht weil man es ihnen sagt, sondern weil sie es spüren.'},
    ideen:[
     {t:'NMG-Projekt Kücken ausbrüten → Blog hält Eltern live auf dem Laufenden',s:['KG','US'],f:['NMG','fachübergr.']},
@@ -743,7 +774,7 @@ const P = [
     {t:'Mathematische Entdeckungen der Klasse als illustriertes Heft für die Schulbibliothek',s:['US','MS'],f:['Mathe']},
     {t:'Geometrische Kunstwerke aus TTG ausstellen und den Entstehungsprozess dokumentieren',s:['MS','OS'],f:['TTG','Mathe']},
   ]},
-  {id:2,color:'#1A9E8F',bg:'rgba(26,158,143,0.07)',name:'Verwesentlichen im Überfluss',sub:'Im Überfluss das Wichtige erkennen und auswählen',
+  {id:2,color:'#0EA895',bg:'rgba(14,168,149,0.09)',name:'Verwesentlichen im Überfluss',sub:'Im Überfluss das Wichtige erkennen und auswählen',
    info:{warum:'Die digitale Welt dreht das alte Knappheitsproblem um: Nicht Zugang zu Information ist die Herausforderung, sondern Orientierung im Überfluss. Auswählen, bewerten und begründen sind Kernkompetenzen der Digitalität — aber Schule hat sie lange vernachlässigt.',vorher:'Die LP wählt aus, was relevant ist. Die Schüler:innen arbeiten mit dem Ausgewählten. Das ist effizient — und schützt vor Überforderung.',nachher:'Schüler:innen üben selbst das Auswählen und Begründen. Die Fähigkeit zu verwesentlichen ist keine Zusatzkompetenz — sie ist das, was Menschen von Algorithmen unterscheidet.'},
    ideen:[
     {t:'Kuratierte Linksammlung zu einem Thema für die Nachfolgeklasse aufbauen',s:['MS','OS'],f:['M&I']},
@@ -759,7 +790,7 @@ const P = [
     {t:'Mathematische Lösungswege vergleichen: Welcher ist elegant — und warum?',s:['MS','OS'],f:['Mathe']},
     {t:'Historische Quellen zu einem RZG-Thema bewerten: Was ist glaubwürdig?',s:['OS'],f:['RZG','M&I']},
   ]},
-  {id:3,color:'#C0455A',bg:'rgba(192,69,90,0.07)',name:'Den Denkweg zeigen',sub:'Nicht das Ergebnis — der Prozess zählt',
+  {id:3,color:'#E0295C',bg:'rgba(224,41,92,0.09)',name:'Den Denkweg zeigen',sub:'Nicht das Ergebnis — der Prozess zählt',
    info:{warum:'Digitale Werkzeuge machen es leicht, nur das polierte Ergebnis zu zeigen — und sie machen das Überarbeiten so leicht wie kaum zuvor. Dabei liegt das Lernen im Weg dorthin: in den Umwegen, Fehlern und Entscheidungen. Wer den Prozess dokumentiert, lernt über das eigene Denken nachzudenken.',vorher:'Das fertige Produkt wird abgegeben und bewertet. Der Weg dorthin bleibt unsichtbar — für die LP, aber auch für die Lernenden selbst.',nachher:'Der Denkweg wird Teil des Lernprodukts. Das macht Metakognition konkret — und zeigt, dass Lernen kein gerader Weg ist, sondern ein iterativer.'},
    ideen:[
     {t:'Lernvideo: nicht das Ergebnis zeigen, sondern wie man darauf gekommen ist',s:['MS','OS'],f:['fachübergr.']},
@@ -775,7 +806,7 @@ const P = [
     {t:'Mathe-Irrwege dokumentieren: Welche falschen Ansätze habe ich ausprobiert?',s:['MS','OS'],f:['Mathe']},
     {t:'ERG-Reflexion: Wie hat sich meine Haltung zu einer ethischen Frage verändert?',s:['OS'],f:['ERG']},
   ]},
-  {id:4,color:'#3A6FC4',bg:'rgba(58,111,196,0.07)',name:'Echte Probleme',sub:'Keine Schulaufgaben — Fragen aus der Welt',
+  {id:4,color:'#2F6FED',bg:'rgba(47,111,237,0.09)',name:'Echte Probleme',sub:'Keine Schulaufgaben — Fragen aus der Welt',
    info:{warum:'Konstruierte Schulaufgaben haben ihren pädagogischen Sinn — aber sie erzeugen oft eine künstliche Distanz zur Welt. In einer Kultur der Digitalität haben Schüler:innen Zugang zu echten Daten, echten Gesprächspartner:innen und echten Publikationsmöglichkeiten. Das eröffnet neue didaktische Räume.',vorher:'Die Aufgabe ist so gestaltet, dass eine Lösung erreichbar ist. Das schafft Sicherheit — und ermöglicht gezieltes Üben.',nachher:'Echte Probleme haben offene Ausgänge. Sie verlangen Urteilsvermögen statt Lösungsabruf — und sie machen Lernen bedeutsam, weil die Antwort wirklich gebraucht wird.'},
    ideen:[
     {t:'Wie wird unser Schulhof besser? → Befragung, Konzept, Präsentation vor Schulleitung',s:['US','MS'],f:['fachübergr.','BNE']},
@@ -791,7 +822,7 @@ const P = [
     {t:'Wie gerecht ist es, dass Mathe-Noten über Berufschancen entscheiden?',s:['OS'],f:['Mathe','ERG','fachübergr.']},
     {t:'Wie hat sich unser Dorf in 100 Jahren verändert — und warum?',s:['MS','OS'],f:['RZG','fachübergr.']},
   ]},
-  {id:5,color:'#3EA83E',bg:'rgba(62,168,62,0.07)',name:'Gestalten, nicht konsumieren',sub:'Schüler:innen als Produzent:innen',
+  {id:5,color:'#22B14C',bg:'rgba(34,177,76,0.09)',name:'Gestalten, nicht konsumieren',sub:'Schüler:innen als Produzent:innen',
    info:{warum:'Digitale Medien verführen zum passiven Konsum. Gleichzeitig ermöglichen sie niederschwelliges Produzieren wie nie zuvor. Typisch für die Digitalität: Die Grenze zwischen Produzierenden und Konsumierenden löst sich auf — Prosumenten gestalten und nutzen gleichzeitig. Schüler:innen als Produzent:innen zu verstehen verändert die Grundhaltung zum Lernen.',vorher:'Die LP gestaltet das Lernsetting, die Schüler:innen arbeiten darin. Das ist eine klare, funktionierende Rollenverteilung.',nachher:'Schüler:innen übernehmen zunehmend Gestaltungsverantwortung. Das ist keine Entlastung der LP — es ist eine andere, anspruchsvollere Form des Lernens.'},
    ideen:[
     {t:'Nicht nach Rezept kochen — eigenes Rezept für eine bestimmte Situation entwickeln',s:['MS','OS'],f:['WAH']},
@@ -807,7 +838,7 @@ const P = [
     {t:'Eigenes Mathe-Rätsel erfinden, das für jüngere Klassen lösbar ist',s:['US','MS'],f:['Mathe','fachübergr.']},
     {t:'Objekt aus TTG gestalten, das ein echtes Problem im Schulhaus löst',s:['MS','OS'],f:['TTG','fachübergr.']},
   ]},
-  {id:6,color:'#B05E2E',bg:'rgba(176,94,46,0.07)',name:'Analog und Digital verschränken',sub:'Das eine verstärkt das andere',
+  {id:6,color:'#DD4B26',bg:'rgba(221,75,38,0.09)',name:'Analog und Digital verschränken',sub:'Das eine verstärkt das andere',
    info:{warum:'Digitalität ist kein Gegensatz zum Analogen — sie ist eine Erweiterung. Die stärksten Lernsettings entstehen oft dort, wo beide Schichten sich ergänzen: das Analoge gibt Tiefe, das Digitale gibt Reichweite.',vorher:'Analog und digital sind oft getrennte Welten im Unterricht. Das eine "ersetzt" das andere — oder beide laufen parallel, ohne sich zu berühren.',nachher:'Die Verschränkung wird bewusst gestaltet. Das digitale Layer erweitert, was das Analoge allein nicht kann — und digitale Werkzeuge machen diese Erweiterung über Grenzen, Zeitzonen und grosse Distanzen hinweg spielend leicht.'},
    ideen:[
     {t:'Selbstportraits als Plakate gestalten + QR-Code mit Stimme und Video ergänzen',s:['US','MS'],f:['BG','D/F/E']},
@@ -823,7 +854,7 @@ const P = [
     {t:'Mathematische Konstruktion mit Zirkel und Lineal + Screencast der digitalen Nachbildung',s:['MS','OS'],f:['Mathe']},
     {t:'Historische Karte zeichnen + mit aktuellen Satellitenbildern überlagern',s:['OS'],f:['RZG','M&I']},
   ]},
-  {id:7,color:'#7E55B8',bg:'rgba(126,85,184,0.07)',name:'Mit der Welt lernen',sub:'Über die Klasse hinaus denken und handeln',
+  {id:7,color:'#8B3FE0',bg:'rgba(139,63,224,0.09)',name:'Mit der Welt lernen',sub:'Über die Klasse hinaus denken und handeln',
    info:{warum:'Lernen war lange ein lokales Ereignis: Klasse, Schulhaus, Gemeinde. Digitalität macht Verbindungen möglich, die früher logistisch kaum denkbar waren. Das verändert, wer am Lernen beteiligt sein kann.',vorher:'Die Lerngemeinschaft ist die Klasse. Expert:innenwissen kommt durch die LP oder das Lehrmittel. Das ist verlässlich — und überschaubar.',nachher:'Die Klasse öffnet sich. Andere Schüler:innen, Fachpersonen, Generationen und Kulturen werden zu echten Lernpartner:innen — digital fällt diese Erweiterung über grosse Distanzen hinweg leichter denn je.'},
    ideen:[
     {t:'Projekt mit Schule in anderem Sprachgebiet — gemeinsames Lied, je eine Strophe',s:['US','MS'],f:['Musik','D/F/E']},
@@ -839,7 +870,7 @@ const P = [
     {t:'Mathematik-Olympiade: Aufgaben mit Schüler:innen anderer Schulen gemeinsam lösen',s:['MS','OS'],f:['Mathe','fachübergr.']},
     {t:'ERG-Debatte mit einer anderen Klasse zu einer ethischen Frage führen',s:['OS'],f:['ERG','D/F/E']},
   ]},
-  {id:8,color:'#1A8FBF',bg:'rgba(26,143,191,0.07)',name:'Digitale Logik erleben',sub:'Algorithmen, Daten und Systeme selbst erfahren',
+  {id:8,color:'#0EA5E9',bg:'rgba(14,165,233,0.09)',name:'Digitale Logik erleben',sub:'Algorithmen, Daten und Systeme selbst erfahren',
    info:{warum:'Algorithmen, Daten und Systeme prägen zunehmend, wie die Welt funktioniert. Wer diese Logik nur konsumiert, ist ihr ausgeliefert. Wer sie selbst erlebt und hinterfragt, gewinnt Handlungsfähigkeit.',vorher:'Digitale Werkzeuge werden genutzt. Was dahintersteckt, bleibt unsichtbar — und das war lange auch nicht nötig zu verstehen.',nachher:'Schüler:innen bauen selbst einfache Modelle, erheben Daten, erleben Filterblasen. Nicht um Informatiker:innen zu werden — sondern um mündige Teilnehmer:innen der digitalen Gesellschaft zu sein.'},
    ideen:[
     {t:'Regelwerk für einen einfachen Entscheidungsbaum schreiben ("Wenn X, dann Y…")',s:['MS','OS'],f:['M&I','fachübergr.']},
@@ -855,7 +886,7 @@ const P = [
     {t:'Statistik im RZG: Bevölkerungsdaten visualisieren und Hypothesen entwickeln',s:['OS'],f:['RZG','Mathe','M&I']},
     {t:'Mathe-Muster in der Natur entdecken und mit eigenen Fotos belegen',s:['US','MS'],f:['Mathe','NMG']},
   ]},
-  {id:9,color:'#9E8A20',bg:'rgba(158,138,32,0.07)',name:'Version 1 ist ein Anfang',sub:'Iteration statt einmaliger Abgabe',
+  {id:9,color:'#C99A08',bg:'rgba(201,154,8,0.10)',name:'Version 1 ist ein Anfang',sub:'Iteration statt einmaliger Abgabe',
    info:{warum:'In der digitalen Welt ist Iteration die Norm — Software, Texte, Designs werden laufend überarbeitet. Schule hat lange das Gegenteil kultiviert: eine Abgabe, eine Note, fertig. Das ist ein Kulturunterschied, der sich lohnt zu reflektieren.',vorher:'Eine Arbeit wird abgegeben und bewertet. Das ist klar, fair — und entspricht dem, was Schüler:innen und LP gewohnt sind.',nachher:'Überarbeiten wird zur Lernhandlung. Feedback ist kein Urteil, sondern Material. Das Bewusstsein, dass Version 1 immer ein Anfang ist, verändert die Haltung zum eigenen Können.'},
    ideen:[
     {t:'Text schreiben → Feedback echter Lesenden einholen → Version 2 schreiben',s:['US','MS','OS'],f:['D/F/E']},
@@ -917,13 +948,12 @@ function renderShelf(picks){
     const sTags = item.s.map(t=>`<span class="ktag stufen-tag" onclick="filterAndExplore('s','${t}')">${t}</span>`).join('');
     const fTags = item.f.map(t=>`<span class="ktag" onclick="filterAndExplore('f','${t}')">${t}</span>`).join('');
     card.innerHTML=`
-      <div class="karte-stripe" style="background:${item.color}"></div>
       <div class="karte-body">
         <div class="karte-prinzip" style="color:${item.color}">
           <span style="background:${item.color}" class="karte-prinzip" ></span>
           ${item.pname}
         </div>
-        <div class="karte-idee">${item.t}</div>
+        <div class="karte-idee" style="color:${item.color}">${item.t}</div>
         <div class="karte-tags">${sTags}${fTags}</div>
       </div>`;
     card.onclick=()=>filterAndExplore('p',item.pid);
@@ -1056,7 +1086,7 @@ function renderExplore(){
     if(filterPrinzip===p.id && p.info){
       const info = document.createElement('div');
       info.className='prinzip-info';
-      info.style.borderColor=p.color;
+      info.style.background=p.bg;
       info.innerHTML=`
         <div class="pi-warum">${p.info.warum}</div>
         <div class="pi-compare">
@@ -1083,9 +1113,8 @@ function renderExplore(){
       const sTags = item.s.map(t=>`<span class="e-tag s-tag" onclick="filterStufe.has('${t}')?filterStufe.delete('${t}'):filterStufe.add('${t}');rebuildActive();renderExplore()">${t}</span>`).join('');
       const fTags = item.f.map(t=>`<span class="e-tag" onclick="filterFach.has('${t}')?filterFach.delete('${t}'):filterFach.add('${t}');rebuildActive();renderExplore()">${t}</span>`).join('');
       card.innerHTML=`
-        <div class="e-stripe" style="background:${p.color}"></div>
         <div class="e-body">
-          <div class="e-text">${item.t}</div>
+          <div class="e-text" style="color:${p.color}">${item.t}</div>
           <div class="e-tags">${sTags}${fTags}</div>
         </div>`;
       grid.appendChild(card);
